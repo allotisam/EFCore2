@@ -10,12 +10,16 @@ namespace SportsStore.Controllers
     public class HomeController : Controller
     {
         private readonly IRepository repository;
+        private readonly ICategoryRepository catRepository;
 
-        public HomeController(IRepository repo) => repository = repo;
+        public HomeController(IRepository repo, ICategoryRepository catRepo)
+        {
+            repository = repo;
+            catRepository = catRepo;
+        }
 
         public IActionResult Index()
         {
-            //Console.Clear();
             return View(repository.Products);
         }
 
@@ -28,13 +32,21 @@ namespace SportsStore.Controllers
         
         public IActionResult UpdateProduct(long key)
         {
-            return View(repository.GetProduct(key));
+            ViewBag.Categories = catRepository.Categories;
+            return View(key == 0 ? new Product() : repository.GetProduct(key));
         }
 
         [HttpPost]
         public IActionResult UpdateProduct(Product product)
         {
-            repository.UpdateProduct(product);
+            if (product.Id == 0)
+            {
+                repository.AddProduct(product);
+            }
+            else
+            {
+                repository.UpdateProduct(product);
+            }
             return RedirectToAction(nameof(Index));
         }
 
