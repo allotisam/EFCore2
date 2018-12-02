@@ -14,5 +14,17 @@ namespace SportsStore.Models
         public DbSet<OrderLine> OrderLines { get; set; }
 
         public DataContext(DbContextOptions<DataContext> opts): base(opts) { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Product>().HasIndex(p => p.Name);
+            modelBuilder.Entity<Product>().HasIndex(p => p.PurchasePrice);
+            modelBuilder.Entity<Product>().HasIndex(p => p.RetailPrice);
+
+            modelBuilder.Entity<Category>().HasIndex(p => p.Name);
+            modelBuilder.Entity<Category>().HasIndex(p => p.Description);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

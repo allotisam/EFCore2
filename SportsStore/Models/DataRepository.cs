@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
+using SportsStore.Models.Pages;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SportsStore.Models
 {
@@ -27,6 +26,11 @@ namespace SportsStore.Models
         #endregion Constructor
 
         #region Methods
+
+        public PagedList<Product> GetProducts(QueryOptions options)
+        {
+            return new PagedList<Product>(context.Products.Include(p => p.Category), options);
+        }
 
         public Product GetProduct(long key) => context.Products.Include(p => p.Category).First(p => p.Id == key);
 
