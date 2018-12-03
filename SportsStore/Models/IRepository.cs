@@ -10,7 +10,8 @@ namespace SportsStore.Models
     {
         IEnumerable<Product> Products { get; }
 
-        PagedList<Product> GetProducts(QueryOptions options);
+        PagedList<Product> GetProducts(QueryOptions options, long category = 0);
+
         Product GetProduct(long key);
         void AddProduct(Product product);
         void UpdateProduct(Product product);

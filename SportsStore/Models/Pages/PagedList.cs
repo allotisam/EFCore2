@@ -35,13 +35,13 @@ namespace SportsStore.Models.Pages
                 }
             }
 
-            Stopwatch sw = Stopwatch.StartNew();
-            Console.Clear();
+            //Stopwatch sw = Stopwatch.StartNew();
+            //Console.Clear();
 
             TotalPages = query.Count() / PageSize;
             AddRange(query.Skip((CurrentPage - 1) * PageSize).Take(PageSize));
 
-            Console.WriteLine($"Query Time: {sw.ElapsedMilliseconds} ms");
+            //Console.WriteLine($"Query Time: {sw.ElapsedMilliseconds} ms");
         }
 
         private static IQueryable<T> Order(IQueryable<T> query, string propertyName, bool desc)
